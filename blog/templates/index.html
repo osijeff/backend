@@ -1,0 +1,166 @@
+
+{% extends "base.html" %}
+{% block title %}My Blog{% endblock %}
+{% block content %}
+
+{% load static %}
+<section class="heroSection">
+    <div class="main">
+        <h1 class="sectionTitle">Liter your hearts <br> and minds</h1>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae exercitationem ad nostrum nesciunt voluptate cum pariatur consequuntur eum minus! Consequuntur similique voluptatem eligendi, dignissimos ipsum quae? Deserunt distinctio dolorem doloremque.</p>
+        <button class="hero"><a href="#">Learn More</a></button>
+    </div>
+</section>
+
+
+
+    <!-- HERO SECTION ENDS HERE -->
+
+
+    <!-- <h1>blog filter</h1> -->
+   
+    <div class="filter-box category">
+        <a href="{{post_list.url}}" class=" btn " data-filter="all">All</a>
+        <a href="#" class=" btn " data-filter="beauty">Beauty</a>
+        <a href="#" class=" btn " data-filter="celebrety">Celebrety Fashion</a>
+        <a href="#" class=" btn " data-filter="clothing">Clothing</a>
+        <a href="#" class=" btn " data-filter="brands">Fashion Brands</a>
+    </div>
+
+<!-- <img src="{% static 'images/banner01.jpg' %}" alt="My image">  -->
+
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <p class="tags">
+            Tags:
+            {% for tag in post.tags.all %}
+            <a href="{% url 'post_list_by_tag' tag.slug %}">
+            {{ tag.name }}
+            </a>
+            {% if not forloop.last %}, {% endif %}
+            {% endfor %}
+           </p>
+      <div class="row">
+
+        {% if tag %}
+ <h2>Posts tagged with "{{ tag.name }}"</h2>
+{% endif %}
+        {% for post in posts %}
+        <div class="col-md-4">
+            
+          <div class="card mb-4 box-shadow">
+            <img class="card-img-top" data-src="{{post.post_image.url }}" style="height: 225px; width: 100%; display: block;" src="{{post.post_image.url }}" >
+            <div class="card-body">
+                <p> Published {{ post.publish }} by <span  class="text-muted">{{ post.author }}</span><p>
+            <h3><a class="card-title" href="{{ post.get_absolute_url }}" style="max-height: 30px">{{ post.title }}</a></h3>
+              <p class="card-text"> {{ post.body|truncatewords:10|linebreaks }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+            
+            
+                 <a   href="{{ post.get_absolute_url }}">Read full story</a>
+                 
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+
+              <small class="text-muted">Tags:</small>
+               <p class="text-muted" style="font-size: 12px;">{{ post.tags.all|join:", " }}</p>
+        
+    
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+    
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% include "pagination.html" with  page=posts %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<article>
+<!-- search -->
+ <div class="search-box">
+    <form action="#" onsubmit="return false">
+        <input type="text" id="search" placeholder="Search Blog">
+    </form>
+ </div>
+
+ <!-- CREATE MODAL BOX-->
+ <h2>Do not miss on our newsletter!</h2>
+ <button class="modal-btn">Subscribe</button>
+<div class="modal-bg">
+    <div class="modal">
+        <h2>Subscribe to our news letter</h2>
+        <div class="form-group">
+            <label for="name" name="name">Name: </label>
+            <input type="text"> <br>
+        </div>
+        <div class="form-group">
+            <label for="email" email="email">Email: </label>
+            <input type="email">
+         </div>
+        <button type="submit">Submit</button>
+        <span class="modal-close">x</span>
+    </div>  
+</div>
+
+
+
+</article>
+</div>
+
+
+
+</section>
+{% endblock %}
